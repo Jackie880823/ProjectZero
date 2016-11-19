@@ -35,4 +35,5 @@
     <string name="txt_reader">XYZ阅读器</string>
     <string name="txt_news">最新闻</string>
     <string name="txt_graduation">毕业设计</string>
+    <string name="txt_toast_message">启动应用: %s</string>
 </resources>

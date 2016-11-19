@@ -47,6 +47,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Toast mToast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        String message = "启动应用: %s";
+        String message = getString(R.string.txt_toast_message);
         switch (view.getId()) {
             case R.id.btn_move:
             case R.id.btn_stock:
@@ -81,6 +83,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return;
         }
 
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        // 停止之前运行的 toast
+        if (mToast != null) {
+            // 当按下按钮toast就会出现在屏幕上，但是立即按下另外一个按钮，这时就需要延迟好一段时间才能看到第二个
+            // toast. 可以试着考虑在显示一个新的toast时，取消依旧还存在的toast。这样可以减少延迟时间并且可以使得
+            // app的用户体验更好，可以即时收到反馈toast
+            mToast.cancel();
+        }
+
+        mToast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        mToast.show();
     }
 }
